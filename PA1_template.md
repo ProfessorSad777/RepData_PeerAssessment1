@@ -12,14 +12,7 @@ output:
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
-```
 
-```
-## Error in `library()`:
-## ! there is no package called 'ggplot2'
-```
-
-``` r
 # Load the data
 fullData <- read.csv("activity.csv")
 
@@ -36,22 +29,11 @@ stepsPerDay <- aggregate(steps ~ date, fullData, FUN = sum)
 
 # Create the histogram
 g <- ggplot(stepsPerDay, aes(x = steps))
-```
-
-```
-## Error in `ggplot()`:
-## ! could not find function "ggplot"
-```
-
-``` r
 g + geom_histogram(fill = "yellow", binwidth = 1000) + 
   labs(title = "Histogram of Steps Taken Each Day", x = "Steps", y = "Frequency")
 ```
 
-```
-## Error:
-## ! object 'g' not found
-```
+![](PA1_template_files/figure-html/steps_per_day-1.png)<!-- -->
 
 ``` r
 # Mean of steps
@@ -82,22 +64,11 @@ stepsPerInterval <- aggregate(steps ~ interval, fullData, mean)
 
 # Create a time series plot
 h <- ggplot(stepsPerInterval, aes(x=interval, y=steps))
-```
-
-```
-## Error in `ggplot()`:
-## ! could not find function "ggplot"
-```
-
-``` r
 h + geom_line() + 
   labs(title = "Time Series Plot of Average Steps per Interval", x = "Interval", y = "Average Steps across All Days")
 ```
 
-```
-## Error:
-## ! object 'h' not found
-```
+![](PA1_template_files/figure-html/daily_activity-1.png)<!-- -->
 
 ``` r
 # Maximum steps by interval
@@ -152,22 +123,11 @@ stepsPerDayFill <- aggregate(steps ~ date, mergeData, FUN = sum)
 
 # Create the histogram
 g1 <- ggplot(stepsPerDayFill, aes(x = steps))
-```
-
-```
-## Error in `ggplot()`:
-## ! could not find function "ggplot"
-```
-
-``` r
 g1 + geom_histogram(fill = "green", binwidth = 1000) + 
   labs(title = "Histogram of Steps Taken Each Day (Imputed)", x = "Steps", y = "Frequency")
 ```
 
-```
-## Error:
-## ! object 'g1' not found
-```
+![](PA1_template_files/figure-html/missing_values-1.png)<!-- -->
 
 ``` r
 # Mean and Median with imputed data
@@ -200,20 +160,9 @@ stepsPerIntervalDT <- aggregate(steps ~ interval+DayType, mergeData, FUN = mean)
 
 # Make the panel plot
 j <- ggplot(stepsPerIntervalDT, aes(x=interval, y=steps))
-```
-
-```
-## Error in `ggplot()`:
-## ! could not find function "ggplot"
-```
-
-``` r
 j + geom_line() + 
   labs(title = "Time Series Plot of Average Steps per Interval: weekdays vs. weekends", x = "Interval", y = "Average Number of Steps") + 
   facet_grid(DayType ~ .)
 ```
 
-```
-## Error:
-## ! object 'j' not found
-```
+![](PA1_template_files/figure-html/weekdays_weekends-1.png)<!-- -->
