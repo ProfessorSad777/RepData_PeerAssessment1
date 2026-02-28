@@ -8,10 +8,18 @@ output:
 
 ## Loading and preprocessing the data
 
-```{r setup, include=TRUE}
+
+``` r
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
+```
 
+```
+## Error in `library()`:
+## ! there is no package called 'ggplot2'
+```
+
+``` r
 # Load the data
 fullData <- read.csv("activity.csv")
 
@@ -21,47 +29,101 @@ fullData$date <- as.Date(fullData$date, "%Y-%m-%d")
 
 ## What is mean total number of steps taken per day?
 
-```{r steps_per_day}
+
+``` r
 # Calculate the total steps per day
 stepsPerDay <- aggregate(steps ~ date, fullData, FUN = sum)
 
 # Create the histogram
 g <- ggplot(stepsPerDay, aes(x = steps))
+```
+
+```
+## Error in `ggplot()`:
+## ! could not find function "ggplot"
+```
+
+``` r
 g + geom_histogram(fill = "yellow", binwidth = 1000) + 
   labs(title = "Histogram of Steps Taken Each Day", x = "Steps", y = "Frequency")
+```
 
+```
+## Error:
+## ! object 'g' not found
+```
+
+``` r
 # Mean of steps
 stepsMean <- mean(stepsPerDay$steps, na.rm=TRUE)
 stepsMean
+```
 
+```
+## [1] 10766.19
+```
+
+``` r
 # Median of steps
 stepsMedian <- median(stepsPerDay$steps, na.rm=TRUE)
 stepsMedian
 ```
 
+```
+## [1] 10765
+```
+
 ## What is the average daily activity pattern?
 
-```{r daily_activity}
+
+``` r
 # create average number of steps per 5-min interval
 stepsPerInterval <- aggregate(steps ~ interval, fullData, mean)
 
 # Create a time series plot
 h <- ggplot(stepsPerInterval, aes(x=interval, y=steps))
+```
+
+```
+## Error in `ggplot()`:
+## ! could not find function "ggplot"
+```
+
+``` r
 h + geom_line() + 
   labs(title = "Time Series Plot of Average Steps per Interval", x = "Interval", y = "Average Steps across All Days")
+```
 
+```
+## Error:
+## ! object 'h' not found
+```
+
+``` r
 # Maximum steps by interval
 maxInterval <- stepsPerInterval[which.max(stepsPerInterval$steps), ]
 maxInterval
 ```
 
+```
+##     interval    steps
+## 104      835 206.1698
+```
+
 ## Imputing missing values
 
-```{r missing_values}
+
+``` r
 # Number of NAs in the original dataset
 noMissingValue <- nrow(fullData[is.na(fullData$steps),])
 noMissingValue
+```
 
+```
+## [1] 2304
+```
+
+``` r
 # My strategy for filling in missing values is to substitute with the average number of steps based on both the 5-minute interval and the day of the week
 fullData1 <- read.csv("activity.csv", header=TRUE, sep=",")
 fullData1$day <- weekdays(as.Date(fullData1$date))
@@ -90,20 +152,46 @@ stepsPerDayFill <- aggregate(steps ~ date, mergeData, FUN = sum)
 
 # Create the histogram
 g1 <- ggplot(stepsPerDayFill, aes(x = steps))
+```
+
+```
+## Error in `ggplot()`:
+## ! could not find function "ggplot"
+```
+
+``` r
 g1 + geom_histogram(fill = "green", binwidth = 1000) + 
   labs(title = "Histogram of Steps Taken Each Day (Imputed)", x = "Steps", y = "Frequency")
+```
 
+```
+## Error:
+## ! object 'g1' not found
+```
+
+``` r
 # Mean and Median with imputed data
 stepsMeanFill <- mean(stepsPerDayFill$steps, na.rm=TRUE)
 stepsMeanFill
+```
 
+```
+## [1] 10821.21
+```
+
+``` r
 stepsMedianFill <- median(stepsPerDayFill$steps, na.rm=TRUE)
 stepsMedianFill
 ```
 
+```
+## [1] 11015
+```
+
 ## Are there differences in activity patterns between weekdays and weekends?
 
-```{r weekdays_weekends}
+
+``` r
 # create a new variable/column indicating weekday or weekend
 mergeData$DayType <- ifelse(mergeData$day %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
 
@@ -112,7 +200,20 @@ stepsPerIntervalDT <- aggregate(steps ~ interval+DayType, mergeData, FUN = mean)
 
 # Make the panel plot
 j <- ggplot(stepsPerIntervalDT, aes(x=interval, y=steps))
+```
+
+```
+## Error in `ggplot()`:
+## ! could not find function "ggplot"
+```
+
+``` r
 j + geom_line() + 
   labs(title = "Time Series Plot of Average Steps per Interval: weekdays vs. weekends", x = "Interval", y = "Average Number of Steps") + 
   facet_grid(DayType ~ .)
+```
+
+```
+## Error:
+## ! object 'j' not found
 ```
